@@ -35,3 +35,24 @@ Use `curl` or browser:
 -curl https://localhost:{port}/api/TeacherAPI/students \
 -curl https://localhost:{port}/api/TeacherAPI/courses \
 
+## 🧪 Web Page Testing (Views)
+
+The following Razor views were tested in the browser:
+
+### All Teachers Page
+- URL: `/TeacherPage/List`
+- Function: Displays a list of all teachers
+- Extra Feature: Date range filter for HireDate
+
+### Single Teacher Page
+- URL: `/TeacherPage/Show/{id}`
+- Function: Displays full details of a single teacher
+- Extra Feature: Also shows all courses taught by the teacher using a ViewModel
+
+### All Students Page
+- URL: `/StudentPage/StudentList`
+- Function: Displays all students with all info
+
+### All Courses Page
+- URL: `/CoursePage/CourseList`
+- Function: Displays all courses with all teacherId
