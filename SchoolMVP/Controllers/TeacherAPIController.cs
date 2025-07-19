@@ -17,7 +17,7 @@ namespace SchoolMVP.Controllers
         /// It will return the details of all the teachers
         /// </returns>
         /// <example>
-        /// *I am just providing one teacher detail because it could be too long.
+        /// NOTE:- *I am just providing one teacher detail because it could be too long.
         /// GET: api/TeacherAPI -> [
         /// {
         ///  "id": 1,

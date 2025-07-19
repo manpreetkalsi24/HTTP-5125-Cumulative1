@@ -6,6 +6,7 @@ namespace SchoolMVP.Controllers
     public class TeacherPageController : Controller
     {
 
+        //method for getting list of all teacher details and search feture by hiredate
         public IActionResult List(DateTime? startDate, DateTime? endDate)
         {
             SchoolDbContext Context_obj = new SchoolDbContext();
@@ -23,6 +24,8 @@ namespace SchoolMVP.Controllers
             return View("~/Views/Teacher/List.cshtml", Teachers);
         }
 
+
+        //method for getting list of all teacher deatils
         //public IActionResult Show(int id)
         //{
         //    SchoolDbContext Context_obj = new SchoolDbContext();
@@ -35,6 +38,7 @@ namespace SchoolMVP.Controllers
         //}
 
 
+        //method for getting a teacher by ID
         public IActionResult Show(int id)
         {
             SchoolDbContext Context_obj = new SchoolDbContext();

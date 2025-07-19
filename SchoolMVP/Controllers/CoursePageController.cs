@@ -5,6 +5,7 @@ namespace SchoolMVP.Controllers
 {
     public class CoursePageController : Controller
     {
+        //method for getting list of all courses 
         public IActionResult CourseList()
         {
             SchoolDbContext Context_obj = new SchoolDbContext();

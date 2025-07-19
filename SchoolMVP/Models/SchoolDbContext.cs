@@ -38,7 +38,7 @@ namespace SchoolMVP.Models
             //create an empty list for teachers detail
             List<Teacher> teachers = new List<Teacher>();
 
-            //use the connectionstring made for connecting with database
+            //use the AccessDatabase function made for connecting with database
             MySqlConnection Connection = SchoolDbContext.AccessDatabase();
 
             //open the database connection
@@ -83,9 +83,9 @@ namespace SchoolMVP.Models
         public Teacher GetTeacherById(int id)
         {
             //create an empty list for teachers detail
-            Teacher teacher = null;
+            Teacher? teacher = null;
 
-            //use the connectionstring made for connecting with database
+            //use of the connectionstring made for connecting with database by AccessDatabase function
             MySqlConnection Connection = SchoolDbContext.AccessDatabase();
 
             //open the database connection
