@@ -33,7 +33,7 @@ Use `curl` or browser:
 -curl https://localhost:{port}/api/TeacherAPI/teachers \
 -curl https://localhost:{port}/api/TeacherAPI/Teacher/1 \
 -curl https://localhost:{port}/api/TeacherAPI/students \
--curl https://localhost:{port}/api/TeacherAPI/courses \
+-curl https://localhost:{port}/api/TeacherAPI/courses 
 
 ## Web Page Testing (Views)
 
