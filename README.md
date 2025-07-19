@@ -35,7 +35,7 @@ Use `curl` or browser:
 -curl https://localhost:{port}/api/TeacherAPI/students \
 -curl https://localhost:{port}/api/TeacherAPI/courses \
 
-## 🧪 Web Page Testing (Views)
+## Web Page Testing (Views)
 
 The following Razor views were tested in the browser:
 
