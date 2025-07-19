@@ -1,0 +1,89 @@
+﻿<style>
+
+    /* style properties for card */
+    .main{
+        display: flex;
+    }
+    .card {
+        width: 30%;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+    .card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size:20px
+    }
+
+    .card p {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+
+    .card2{
+        width:70%;   
+    }
+
+    .course_container{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .course_details{
+        max-width: 33%;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        font-family: Arial, sans-serif;
+    }
+
+</style>
+@model SchoolMVP.Models.TeacherCourseViewModel
+<div class="main">
+    <div class="card">
+        <h2>Teacher Details</h2>
+        <p><strong>Teacher ID:-</strong> @Model.Teacher.Id</p>
+        <p><strong>Name:-</strong> @Model.Teacher.FirstName @Model.Teacher.LastName</p>
+        <p><strong>Employee:-</strong> @Model.Teacher.EmpNumber</p>
+        <p><strong>Hire Date:-</strong> @Model.Teacher.HireDate.ToShortDateString()</p>
+        <p><strong>Salary:-</strong> $@Model.Teacher.Salary</p>
+    </div>
+
+    <div class="card card2">
+        <h2>Courses Taught By Teacher</h2>
+        <div class="course_container">
+
+            @if (Model.Courses.Count == 0)
+            {
+                <p>No courses found for this teacher</p>
+            }
+
+            else{
+
+                    @foreach(var course in Model.Courses){
+                        <div class="course_details">
+                            <p><strong>Course ID:-</strong> @course.CourseId</p>
+                            <p><strong>Course Code:-</strong> @course.CourseCode</p>
+                            <p><strong>Course Name:-</strong> @course.CourseName</p>
+                            <p><strong>Course Start Date:-</strong> @course.StartDate.ToShortDateString()</p>
+                            <p><strong>Course End Date:-</strong> @course.FinishDate.ToShortDateString()</p>
+                        </div>
+                    }
+   
+            }
+        </div>
+    </div>
+</div>
+
+    
+

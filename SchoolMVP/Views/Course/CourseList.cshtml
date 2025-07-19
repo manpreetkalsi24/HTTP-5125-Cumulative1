@@ -1,0 +1,62 @@
+﻿
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    table {
+        border: 1px solid #4f81be;
+        width: 100%;
+    }
+
+    th {
+        background-color: #4f81be;
+        color: #fff;
+        border: 1px solid #4f81be;
+    }
+
+    td {
+        border: 1px solid #4f81be;
+        font-size: 18px;
+    }
+
+    tr:nth-child(2n+1) {
+        background: #dde7f3;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+@model List<SchoolMVP.Models.Course>
+
+<h1>All Courses's Information</h1>
+
+<table cellpadding="8" cellspacing="0">
+
+    <thead>
+        <tr>
+            <th>Course ID </th>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Teacher ID</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.CourseId</td>
+                <td>@course.CourseCode</td>
+                <td>@course.CourseName</td>
+                <td>@course.StartDate.ToShortDateString()</td>
+                <td>@course.FinishDate.ToShortDateString()</td>
+                <td>@course.TeacherId</td>
+            </tr>
+        }
+    </tbody>
+</table>

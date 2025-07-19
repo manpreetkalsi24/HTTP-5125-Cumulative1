@@ -1,0 +1,60 @@
+﻿
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    table {
+        border: 1px solid #80659d;
+        width: 100%;
+    }
+
+    th {
+        background-color: #80659d;
+        color: #fff;
+        border: 1px solid #80659d;
+    }
+
+    td {
+        border: 1px solid #80659d;
+        font-size: 18px;
+    }
+
+    tr:nth-child(2n+1) {
+        background: #e3dcec;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+@model List<SchoolMVP.Models.Student>
+
+<h1>All Student's Information</h1>
+
+<table cellpadding="8" cellspacing="0">
+
+    <thead>
+        <tr>
+            <th>Student ID </th>
+            <th>First Name </th>
+            <th>Last Name</th>
+            <th>Student Number </th>
+            <th> Date</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentId</td>
+                <td>@student.StudentFname</td>
+                <td>@student.StudentLname</td>
+                <td>@student.StudentNumber</td>
+                <td>@student.EnrolDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

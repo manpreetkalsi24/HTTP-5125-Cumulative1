@@ -1,0 +1,104 @@
+﻿
+@* CSS for styling form and tables *@
+<style>
+    h1{
+        text-align:center;
+    }
+   
+    table{
+        border: 1px solid #70ad47;
+        width:100%;
+        
+    }
+    th{
+        background-color: #70ad47;
+        color:#fff;
+        border: 1px solid #70ad47;
+    }
+
+    td{
+        border: 1px solid #70ad47;
+        font-size:18px;
+    }
+
+    tr:nth-child(2n+1){
+            background: #e2efda;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    form{
+        margin-bottom: 20px;
+        display:flex;
+        gap:10px;
+    }
+
+    label{
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    input[type="date"]{
+        border: 1px solid #70ad47;
+        color: #70ad47;
+        padding: 5px 10px;
+
+    }
+
+    .btn{
+        border: 1px solid #70ad47;
+        background: #70ad47;
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: white;
+        font-size: 16px;
+    }
+</style>
+
+@model List<SchoolMVP.Models.Teacher>
+
+    <h1>All Teacher's Information</h1>
+
+    @* form for searching teachers by hire date *@
+
+    <form method="get" action="/TeacherPage/List">
+        <label>Hire Date From:</label>
+        <input type="date" name="startDate" />
+
+        <label>To:</label>
+        <input type="date" name="endDate" />
+
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    @* table for showing all teacher's details *@
+    
+    <table cellpadding="8" cellspacing="0">
+
+        <thead>
+            <tr>
+                <th>Teacher ID </th>
+                <th>First Name </th>
+                <th>Last Name</th>
+                <th>Employee Number </th>
+                <th>Hire Date</th>
+                <th>Salary </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach(var teacher in Model)
+            {
+                <tr>
+                    <td>@teacher.Id</td>
+                    <td>@teacher.FirstName</td>
+                    <td>@teacher.LastName</td>
+                    <td>@teacher.EmpNumber</td>
+                    <td>@teacher.HireDate.ToShortDateString()</td>
+                    <td>@teacher.Salary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
