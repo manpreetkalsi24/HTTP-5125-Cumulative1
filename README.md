@@ -1,6 +1,6 @@
 # C# ASP.NET Core MVC + Web API Cumulative Project
 
-## 📘 Project Overview
+## Project Overview
 
 This is a school management MVP project built using **ASP.NET Core MVC and Web API**. It implements CRUD functionality (READ only for now) on the `Teachers`, `Courses`, and `Students` tables using a MySQL database (XAMPP).
 
