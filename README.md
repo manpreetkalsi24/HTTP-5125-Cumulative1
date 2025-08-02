@@ -55,12 +55,12 @@ Use `curl` or browser:
 -curl https://localhost:{port}/api/TeacherAPI/teachers \
 -curl https://localhost:{port}/api/TeacherAPI/Teacher/1 \
 -curl https://localhost:{port}/api/TeacherAPI/students \
--curl https://localhost:{port}/api/TeacherAPI/courses
--curl https://localhost:{port}/api/TeacherAPI/addteacher
--curl https://localhost:{port}/api/TeacherAPI/deleteteacher/11
--curl https://localhost:{port}/api/TeacherAPI/addstudent
--curl https://localhost:{port}/api/TeacherAPI/deletestudent/20
--curl https://localhost:{port}/api/TeacherAPI/addcourse
+-curl https://localhost:{port}/api/TeacherAPI/courses \
+-curl https://localhost:{port}/api/TeacherAPI/addteacher \
+-curl https://localhost:{port}/api/TeacherAPI/deleteteacher/11 \
+-curl https://localhost:{port}/api/TeacherAPI/addstudent \
+-curl https://localhost:{port}/api/TeacherAPI/deletestudent/20 \
+-curl https://localhost:{port}/api/TeacherAPI/addcourse \
 -curl https://localhost:{port}/api/TeacherAPI/deletecourse/4
 
 
