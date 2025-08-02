@@ -14,7 +14,21 @@ The application supports:
 - Web API for getting teacher detail by ID
 - Web API for getting all Students data
 - Web API for getting all Courses data
-
+- An API which adds a Teacher
+- An API which deletes a Teacher
+- An API which adds a Student
+- An API which deletes a Student
+- An API which adds a Course
+- An API which deletes a Course
+- Web API for adding teacher data
+- Web API for deleting particular teacher
+- Web API for confirmation of delteion of teacher data
+- Web API for adding student data
+- Web API for deleting particular student
+- Web API for confirmation of delteion of student data
+- Web API for adding course data
+- Web API for deleting particular course
+- Web API for confirmation of delteion of course data
 ---
 
 ##  How to Test
@@ -27,13 +41,28 @@ The application supports:
 | Get teacher by ID                | `GET`           | `/api/TeacherAPI/Teacher/1`                 |
 | Get all students                 | `GET`           | `/api/TeacherAPI/students`                  |
 | Get all Courses                  | `GET`           | `/api/TeacherAPI/courses`                   |
+| Add new teacher                  | `POST`          | `/api/TeacherAPI/addteacher`                |
+| delete teacher                   | `GET`           | `/api/TeacherAPI/deleteteacher/12`          |
+| Add new student                  | `POST`          | `/api/TeacherAPI/AddStudent`                |
+| delete teacher                   | `GET`           | `/api/TeacherAPI/deletestudent/33`          |
+| Add new course                   | `POST`          | `/api/TeacherAPI/addcourse`                 |
+| delete course                    | `GET`           | `/api/TeacherAPI/deletecourse/2`            |
+
+
 
 Use `curl` or browser:
 
 -curl https://localhost:{port}/api/TeacherAPI/teachers \
 -curl https://localhost:{port}/api/TeacherAPI/Teacher/1 \
 -curl https://localhost:{port}/api/TeacherAPI/students \
--curl https://localhost:{port}/api/TeacherAPI/courses 
+-curl https://localhost:{port}/api/TeacherAPI/courses
+-curl https://localhost:{port}/api/TeacherAPI/addteacher
+-curl https://localhost:{port}/api/TeacherAPI/deleteteacher/11
+-curl https://localhost:{port}/api/TeacherAPI/addstudent
+-curl https://localhost:{port}/api/TeacherAPI/deletestudent/20
+-curl https://localhost:{port}/api/TeacherAPI/addcourse
+-curl https://localhost:{port}/api/TeacherAPI/deletecourse/4
+
 
 ## Web Page Testing (Views)
 
@@ -56,3 +85,15 @@ The following Razor views were tested in the browser:
 ### All Courses Page
 - URL: `/CoursePage/CourseList`
 - Function: Displays all courses with all teacherId
+
+### Add Teacher Detail Page
+- URL: `/TeacherPage/new`
+- Function: Shows a web page where we can add teacher detail
+
+### Add Course Detail Page
+- URL: `/CoursePage/new`
+- Function: Shows a web page where we can add course detail
+
+### Add Student Detail Page
+- URL: `/StudentPage/new`
+- Function: Shows a web page where we can add student detail
