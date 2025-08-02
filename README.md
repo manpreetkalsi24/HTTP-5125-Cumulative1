@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a school management MVP project built using **ASP.NET Core MVC and Web API**. It implements CRUD functionality (READ only for now) on the `Teachers`, `Courses`, and `Students` tables using a MySQL database (XAMPP).
+This is a school management MVP project built using **ASP.NET Core MVC and Web API**. It implements CRUD functionality (READ, ADD, DELETE for now) on the `Teachers`, `Courses`, and `Students` tables using a MySQL database (XAMPP).
 
 The application supports:
 - Viewing all teachers and search functionality by HireDate
