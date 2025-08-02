@@ -1,10 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 using SchoolMVP.Models;
 
 namespace SchoolMVP.Controllers
 {
     public class TeacherPageController : Controller
     {
+
+        private readonly TeacherAPIController _api;
+
+        public TeacherPageController(TeacherAPIController api)
+        {
+            _api = api;
+        }
 
         //method for getting list of all teacher details and search feture by hiredate
         public IActionResult List(DateTime? startDate, DateTime? endDate)
@@ -59,5 +68,62 @@ namespace SchoolMVP.Controllers
             return View("~/Views/Teacher/Show.cshtml", viewModel);
         }
 
+
+        // GET : TeacherPage/New
+        [HttpGet]
+        public IActionResult New(int id)
+        {
+            return View("~/Views/Teacher/New.cshtml");
+        }
+
+
+        // POST: TeacherPage/Create
+        [HttpPost]
+        public IActionResult Create(Teacher NewTeacher)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("~/Views/Teacher/New.cshtml", NewTeacher); // Show form again with errors
+            }
+
+            int TeacherId = _api.AddTeacher(NewTeacher);
+
+            if (TeacherId <= 0)
+            {
+                ViewBag.ErrorMessage = "Failed to add teacher.";
+                ViewBag.ErrorMessage = "Hire date cannot be in the future.";
+                return View("~/Views/Teacher/New.cshtml", NewTeacher);
+            }
+
+            // redirects to "Show" action on "Teacher" cotroller with id parameter supplied
+            return RedirectToAction("Show", new { id = TeacherId });
+        }
+
+
+        // GET : TeacherPage/DeleteConfirm/{id}
+        [HttpGet]
+        public IActionResult DeleteConfirm(int id)
+        {
+            var result = _api.GetTeacherById(id);
+
+            if (result.Result is OkObjectResult ok && ok.Value is Teacher SelectedTeacher)
+            {
+                return View("~/Views/Teacher/DeleteConfirm.cshtml",SelectedTeacher);
+            }
+            else
+            {
+                return NotFound("Teacher not found");
+            }
+         
+        }
+
+        // POST: TeacherPage/Delete/{id}
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            int TeacherId = _api.DeleteTeacher(id);
+            // redirects to list action
+            return RedirectToAction("List");
+        }
     }
 }

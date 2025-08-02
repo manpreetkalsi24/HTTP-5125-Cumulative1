@@ -1,0 +1,33 @@
+﻿<style>
+    .back_link {
+        margin-bottom: 10px;
+    }
+
+        .back_link .navlink {
+            font-size: 18px;
+        }
+
+    button {
+        background-color: #ffc107;
+        color: #000;
+        border-radius: 5px;
+        padding: 5px 10px;
+        border: 1px solid #ffc107;
+    }
+
+</style>
+
+@model SchoolMVP.Models.Student
+
+<div id="containershow">
+    <nav class="back_link">
+        <a class="navlink" href="/StudentPage/Show/@Model.StudentId">Cancel</a>
+    </nav>
+    <h2>Are you sure you want to delete @Model.StudentFname @Model.StudentLname?</h2>
+    <p>This action cannot be undone.</p>
+    <form method="POST" action="/StudentPage/Delete/@Model.StudentId">
+        <button class="btn-delete">
+            Confirm Delete
+        </button>
+    </form>
+</div>

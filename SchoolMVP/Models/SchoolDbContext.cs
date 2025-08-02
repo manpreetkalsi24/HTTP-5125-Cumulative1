@@ -67,6 +67,7 @@ namespace SchoolMVP.Models
                 newTeacher.EmpNumber = ResultSet["employeenumber"].ToString();
                 newTeacher.HireDate = Convert.ToDateTime(ResultSet["hiredate"]);
                 newTeacher.Salary = Convert.ToDecimal(ResultSet["salary"]);
+                newTeacher.TeacherWorkPhone = ResultSet["teacherworkphone"].ToString();
 
                 teachers.Add(newTeacher);
             }
@@ -114,6 +115,7 @@ namespace SchoolMVP.Models
                 newTeacher.EmpNumber = ResultSet["employeenumber"].ToString();
                 newTeacher.HireDate = Convert.ToDateTime(ResultSet["hiredate"]);
                 newTeacher.Salary = Convert.ToDecimal(ResultSet["salary"]);
+                newTeacher.TeacherWorkPhone = ResultSet["teacherworkphone"].ToString();
 
                 teacher = newTeacher;
             }
@@ -174,7 +176,56 @@ namespace SchoolMVP.Models
 
         }
 
-    // Method for getting all course details
+
+        // Method for getting students details by particular id
+        public Student GetStudentById(int id)
+        {
+            //create an empty list for students detail
+            Student? student = null;
+
+            //use of the connectionstring made for connecting with database by AccessDatabase function
+            MySqlConnection Connection = SchoolDbContext.AccessDatabase();
+
+            //open the database connection
+            Connection.Open();
+
+            //Sql query for getting all details of students
+            string query = "SELECT * FROM students WHERE studentid = @id";
+
+            // Create command
+            MySqlCommand Command = new MySqlCommand(query, Connection);
+            Command.Parameters.AddWithValue("@id", id);
+
+            //run the query against database
+            //get the response from a databse as a Result set
+            MySqlDataReader ResultSet = Command.ExecuteReader();
+
+            //loop through the results to get info of teachers
+
+            while (ResultSet.Read())
+            {
+                Student newStudent = new Student();
+
+                newStudent.StudentId = Convert.ToInt32(ResultSet["studentid"]);
+                newStudent.StudentFname = ResultSet["studentfname"].ToString();
+                newStudent.StudentLname = ResultSet["studentlname"].ToString();
+                newStudent.StudentNumber = ResultSet["studentnumber"].ToString();
+                newStudent.EnrolDate = Convert.ToDateTime(ResultSet["enroldate"]);
+                
+
+                student = newStudent;
+            }
+            //close the dataset
+            ResultSet.Close();
+            //close the database connection
+            Connection.Close();
+
+            //return the list
+            return student;
+        }
+
+
+        // Method for getting all course details
         public List<Course> GetAllCourses()
         {
             //create an empty list object for students detail
@@ -270,5 +321,52 @@ namespace SchoolMVP.Models
         }
 
 
+        // Method for getting students details by particular id
+        public Course GetCourseById(int id)
+        {
+            //create an empty list for courses detail
+            Course? course = null;
+
+            //use of the connectionstring made for connecting with database by AccessDatabase function
+            MySqlConnection Connection = SchoolDbContext.AccessDatabase();
+
+            //open the database connection
+            Connection.Open();
+
+            //Sql query for getting all details of students
+            string query = "SELECT * FROM courses WHERE courseid = @id";
+
+            // Create command
+            MySqlCommand Command = new MySqlCommand(query, Connection);
+            Command.Parameters.AddWithValue("@id", id);
+
+            //run the query against database
+            //get the response from a databse as a Result set
+            MySqlDataReader ResultSet = Command.ExecuteReader();
+
+            //loop through the results to get info of teachers
+
+            while (ResultSet.Read())
+            {
+                Course newCourse = new Course();
+
+                newCourse.CourseId = Convert.ToInt32(ResultSet["courseid"]);
+                newCourse.CourseCode = ResultSet["coursecode"].ToString();
+                newCourse.CourseName = ResultSet["coursename"].ToString();
+                newCourse.TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
+                newCourse.StartDate = Convert.ToDateTime(ResultSet["startdate"]);
+                newCourse.FinishDate = Convert.ToDateTime(ResultSet["finishdate"]);
+
+
+                course = newCourse;
+            }
+            //close the dataset
+            ResultSet.Close();
+            //close the database connection
+            Connection.Close();
+
+            //return the list
+            return course;
+        }
     }
 }

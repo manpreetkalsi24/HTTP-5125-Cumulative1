@@ -85,12 +85,15 @@
                 <th>Employee Number </th>
                 <th>Hire Date</th>
                 <th>Salary </th>
+                <th>Work Phone </th>
+
             </tr>
         </thead>
 
         <tbody>
             @foreach(var teacher in Model)
             {
+
                 <tr>
                     <td>@teacher.Id</td>
                     <td>@teacher.FirstName</td>
@@ -98,6 +101,7 @@
                     <td>@teacher.EmpNumber</td>
                     <td>@teacher.HireDate.ToShortDateString()</td>
                     <td>@teacher.Salary</td>
+                    <td>@teacher.TeacherWorkPhone</td>
                 </tr>
             }
         </tbody>

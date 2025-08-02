@@ -47,10 +47,21 @@
         font-family: Arial, sans-serif;
     }
 
+    #delete_btn {
+        display: inline-block;
+        background: red;
+        color: white;
+        padding: 7px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin-left: 20px;
+    }
+
 </style>
 
 @model SchoolMVP.Models.TeacherCourseViewModel
 
+<a href="/TeacherPage/List">Back to List</a> 
 <div class="main">
     <div class="card">
         <h2>Teacher Details</h2>
@@ -59,6 +70,7 @@
         <p><strong>Employee:-</strong> @Model.Teacher.EmpNumber</p>
         <p><strong>Hire Date:-</strong> @Model.Teacher.HireDate.ToShortDateString()</p>
         <p><strong>Salary:-</strong> $@Model.Teacher.Salary</p>
+        <p><strong>Work Phone:-</strong> @Model.Teacher.TeacherWorkPhone</p>
     </div>
 
     <div class="card card2">
@@ -72,20 +84,23 @@
 
             else{
 
-                    @foreach(var course in Model.Courses){
-                        <div class="course_details">
-                            <p><strong>Course ID:-</strong> @course.CourseId</p>
-                            <p><strong>Course Code:-</strong> @course.CourseCode</p>
-                            <p><strong>Course Name:-</strong> @course.CourseName</p>
-                            <p><strong>Course Start Date:-</strong> @course.StartDate.ToShortDateString()</p>
-                            <p><strong>Course End Date:-</strong> @course.FinishDate.ToShortDateString()</p>
-                        </div>
-                    }
+                @foreach(var course in Model.Courses){
+                    <div class="course_details">
+                        <p><strong>Course ID:-</strong> @course.CourseId</p>
+                        <p><strong>Course Code:-</strong> @course.CourseCode</p>
+                        <p><strong>Course Name:-</strong> @course.CourseName</p>
+                        <p><strong>Course Start Date:-</strong> @course.StartDate.ToShortDateString()</p>
+                        <p><strong>Course End Date:-</strong> @course.FinishDate.ToShortDateString()</p>
+                    </div>
+                }
    
             }
         </div>
     </div>
 </div>
+
+
+<a id="delete_btn" href="/TeacherPage/DeleteConfirm/@Model.Teacher.Id">Delete</a>
 
     
 
