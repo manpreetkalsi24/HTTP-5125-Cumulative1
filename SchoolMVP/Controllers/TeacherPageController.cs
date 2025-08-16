@@ -125,5 +125,75 @@ namespace SchoolMVP.Controllers
             // redirects to list action
             return RedirectToAction("List");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var result = _api.GetTeacherById(id);
+
+
+
+            if (result.Result is OkObjectResult ok && ok.Value is Teacher teacher)
+            {
+                return View("~/Views/Teacher/Edit.cshtml", teacher);
+            }
+            else
+            {
+                return NotFound("Teacher not found");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Teacher teacher)
+        {
+            
+            if (teacher.HireDate > DateTime.Today)
+            {
+                ModelState.AddModelError("HireDate", "Hire date cannot be in the future.");
+            }
+
+            if (teacher.Salary < 0)
+            {
+                ModelState.AddModelError("Salary", "Salary cannot be negative.");
+                return View(teacher);
+            }
+
+            if (ModelState.IsValid)
+            {
+                int result = _api.UpdateTeacher(teacher); // Call API style method
+
+                if (result == -1)
+                {
+                    ViewBag.Error = "First and Last name cannot be empty.";
+                }
+                else if (result == -2)
+                {
+                    ViewBag.Error = "Salary cannot be negative.";
+                }
+                else if (result == -3)
+                {
+                    ViewBag.Error = "Hire date cannot be in the future.";
+                }
+
+                else if (result > 0)
+                {
+                    return RedirectToAction("List");
+                }
+                else
+                {
+                    ViewBag.Error = "Update failed.";
+                }
+            }
+
+            else
+            {
+                ViewBag.Error = "Please fill out all required fields.";
+                return View(teacher);
+            }
+
+            return View(teacher);
+        }
+
+
     }
 }

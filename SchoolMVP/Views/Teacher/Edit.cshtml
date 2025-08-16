@@ -1,0 +1,125 @@
+﻿<style>
+
+    #containershow {
+        width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border: 1px solid #d3d3d3;
+        padding: 20px 40px;
+    }
+
+    .back_link {
+        margin-bottom: 10px;
+    }
+
+        .back_link .navlink {
+            font-size: 18px;
+        }
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    .inputrow {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    label {
+        flex: 1;
+        font-weight: 500;
+        font-size: 17px;
+    }
+
+    input {
+        flex: 2;
+        border-radius: 5px;
+        border: 1px solid #000;
+        padding: 5px 10px;
+    }
+
+        input[type=submit] {
+            background-color: #067f7b;
+            color: #fff;
+        }
+
+    #actions{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+    }
+
+</style>
+@model SchoolMVP.Models.Teacher
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" style="margin-bottom: 15px;">
+        @ViewBag.ErrorMessage
+    </div>
+}
+
+
+﻿<div id="containershow">
+    <div id="actions">
+        <nav class="back_link">
+            <a class="navlink" href="/TeacherPage/List">Back To Teacher's List'</a>
+        </nav>
+
+        <nav class="back_link">
+            <a class="navlink" href="/TeacherPage/New">Add New Teacher</a>
+        </nav>
+
+    </div>
+    
+    <h2>Edit Teacher</h2>
+
+    <form method="POST" action="/TeacherPage/Edit">
+        <!-- Hidden field for TeacherId -->
+        <input type="hidden" asp-for="Id" />
+
+        <div class="inputrow">
+            <label asp-for="FirstName">First Name:</label>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+
+        <div class="inputrow">
+            <label asp-for="LastName">Last Name:</label>
+            <input asp-for="LastName" class="form-control" />
+        </div>
+        <span asp-validation-for="LastName" class="text-danger"></span>
+
+        <div class="inputrow">
+            <label asp-for="EmpNumber">Employee Number:</label>
+            <input asp-for="EmpNumber" class="form-control" />
+        </div>
+        <span asp-validation-for="EmpNumber" class="text-danger"></span>
+
+        <div class="inputrow">
+            <label asp-for="HireDate">Hire Date:</label>
+            <input asp-for="HireDate" class="form-control" type="date" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        </div>
+        <span asp-validation-for="HireDate" class="text-danger"></span>
+
+        <div class="inputrow">
+            <label asp-for="Salary">Salary:</label>
+            <input asp-for="Salary" class="form-control" />
+        </div>
+        <span asp-validation-for="Salary" class="text-danger"></span>
+
+        <div class="inputrow">
+            <label for="TeacherWorkPhone">Work Phone:</label>
+            <input name="TeacherWorkPhone" id="TeacherWorkPhone" type="text" value="@Model.TeacherWorkPhone" />
+        </div>
+
+        <div class="inputrow">
+            <input type="submit" value="Update Teacher" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

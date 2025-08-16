@@ -113,7 +113,61 @@ namespace SchoolMVP.Controllers
             // redirects to list action
             return RedirectToAction("StudentList");
         }
-    }
 
+        // GET: StudentPage/Edit/{id}
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var result = _api.GetStudentById(id);
+
+            if (result.Result is OkObjectResult ok && ok.Value is Student student)
+            {
+                return View("~/Views/Student/Edit.cshtml", student);
+            }
+            else
+            {
+                return NotFound("Student not found");
+            }
+        }
+
+        // POST: StudentPage/Edit
+        [HttpPost]
+        public IActionResult Edit(Student student)
+        {
+            if (student.EnrolDate > DateTime.Today)
+            {
+                ModelState.AddModelError("EnrolDate", "Enrollment date cannot be in the future.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Error = "Please fix validation errors and try again.";
+                return View(student);
+            }
+
+            int result = _api.UpdateStudent(student);
+
+            if (result == -1)
+            {
+                ViewBag.Error = "First and Last name cannot be empty.";
+            }
+            else if (result == -2)
+            {
+                ViewBag.Error = "Enrollment date cannot be in the future.";
+            }
+            else if (result > 0)
+            {
+                return RedirectToAction("StudentList"); // Replace with your actual list view
+            }
+            else
+            {
+                ViewBag.Error = "Update failed.";
+            }
+
+            return View(student);
+        }
+
+
+    }
 
 }

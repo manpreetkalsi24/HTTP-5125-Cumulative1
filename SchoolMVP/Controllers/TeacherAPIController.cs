@@ -175,6 +175,69 @@ namespace SchoolMVP.Controllers
 
         }
 
+        /// <summary>
+        /// Updates an existing teacher's information in the database using the provided teacher object.
+        /// </summary>
+        /// <param name="teacher">The teacher object containing updated information.</param>
+        /// <returns>
+        /// A message or status code indicating the result of the update operation as  number of records updated or error code.
+        /// </returns>
+        /// <example>
+        /// POST: api/TeacherAPI/updateTeacher/11
+        /// </example>
+
+
+        [HttpGet(template: "UpdateTeacher/{TeacherId}")]
+        public int UpdateTeacher(Teacher teacher)
+        {
+            // Error handling
+            if (string.IsNullOrWhiteSpace(teacher.FirstName) || string.IsNullOrWhiteSpace(teacher.LastName))
+            {
+                return -1; // Error: Name is empty
+            }
+
+            if (teacher.Salary < 0)
+            {
+                return -2; // Error: Salary is negative
+            }
+
+            if (teacher.HireDate > DateTime.Today)
+            {
+                return -3; // Error: Hire date is in future
+            }
+
+            using (MySqlConnection connection = SchoolDbContext.AccessDatabase())
+            {
+                connection.Open();
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = @"
+                UPDATE teachers 
+                SET 
+                    teacherfname = @FirstName,
+                    teacherlname = @LastName,
+                    employeenumber = @EmpNumber,
+                    hiredate = @HireDate,
+                    salary = @Salary,
+                    teacherworkphone = @TeacherWorkPhone
+                WHERE teacherid = @Id";
+
+                command.Parameters.AddWithValue("@FirstName", teacher.FirstName);
+                command.Parameters.AddWithValue("@LastName", teacher.LastName);
+                command.Parameters.AddWithValue("@EmpNumber", teacher.EmpNumber);
+                command.Parameters.AddWithValue("@HireDate", teacher.HireDate);
+                command.Parameters.AddWithValue("@Salary", teacher.Salary);
+                command.Parameters.AddWithValue("@TeacherWorkPhone", teacher.TeacherWorkPhone ?? (object)DBNull.Value);
+                command.Parameters.AddWithValue("@Id", teacher.Id);
+
+                int rowsAffected = command.ExecuteNonQuery();
+
+                return rowsAffected; // 1 if updated, 0 if not found
+            }
+        }
+
+
+
 
         /// <summary>
         /// This method should connect with database and extract students information as JSON
@@ -342,6 +405,59 @@ namespace SchoolMVP.Controllers
 
 
         /// <summary>
+        /// Updates an existing student's information in the database using the provided student object.
+        /// </summary>
+        /// <param name="student">The student object containing updated details.</param>
+        /// <returns>
+        /// A message or status code indicating the outcome of the update operation such as number of records updated or specific error code).
+        /// </returns>
+        /// <example>
+        /// POST: api/StudentAPI/updateStudent/5
+        /// </example>
+
+        [HttpGet(template: "UpdateStudent/{StudentId}")]
+
+        public int UpdateStudent(Student student)
+        {
+            // Error handling
+            if (string.IsNullOrWhiteSpace(student.StudentFname) || string.IsNullOrWhiteSpace(student.StudentLname))
+            {
+                return -1; // Error: Name is empty
+            }
+
+            if (student.EnrolDate > DateTime.Today)
+            {
+                return -2; // Error: Enrolment date is in the future
+            }
+
+            using (MySqlConnection connection = SchoolDbContext.AccessDatabase())
+            {
+                connection.Open();
+
+                MySqlCommand command = connection.CreateCommand();
+                command.CommandText = @"
+            UPDATE students 
+            SET 
+                studentfname = @StudentFname,
+                studentlname = @StudentLname,
+                studentnumber = @StudentNumber,
+                enroldate = @EnrolDate
+            WHERE studentid = @Id";
+
+                command.Parameters.AddWithValue("@StudentFname", student.StudentFname);
+                command.Parameters.AddWithValue("@StudentLname", student.StudentLname);
+                command.Parameters.AddWithValue("@StudentNumber", student.StudentNumber);
+                command.Parameters.AddWithValue("@EnrolDate", student.EnrolDate);
+                command.Parameters.AddWithValue("@Id", student.StudentId);
+
+                int rowsAffected = command.ExecuteNonQuery();
+                return rowsAffected;
+            }
+        }
+
+
+
+        /// <summary>
         /// This method should connect with database and extract courses information as JSON
         /// </summary>
         /// <returns>
@@ -506,6 +622,64 @@ namespace SchoolMVP.Controllers
             }
 
         }
+
+
+        /// <summary>
+        /// Updates an existing course's details in the database using the provided course object.
+        /// </summary>
+        /// <param name="course">The course object containing updated course data.</param>
+        /// <returns>
+        /// A message or status code indicating the result of the update action such as 1 if updated successfully, or error codes for validation failures).
+        /// </returns>
+        /// <example>
+        /// POST: api/CourseAPI/updateCourse/3
+        /// </example>
+
+        [HttpGet(template: "Updatecourse/{CourseId}")]
+        public int UpdateCourse(Course course)
+        {
+            // Basic validation
+            if (string.IsNullOrWhiteSpace(course.CourseCode) || string.IsNullOrWhiteSpace(course.CourseName))
+                return -1; // Course name/code is empty
+
+            if (course.StartDate > DateTime.Today)
+                return -2; // Future start date
+
+            if (course.FinishDate < course.StartDate)
+                return -3; // Finish date before start
+
+            if (course.TeacherId <= 0)
+                return -4; // Invalid teacher
+
+            using (MySqlConnection Connection = SchoolDbContext.AccessDatabase())
+            {
+                Connection.Open();
+
+                MySqlCommand Command = Connection.CreateCommand();
+                Command.CommandText = @"
+            UPDATE courses 
+            SET 
+                coursecode = @coursecode,
+                coursename = @coursename,
+                startdate = @startdate,
+                finishdate = @finishdate,
+                teacherid = @teacherid
+            WHERE courseid = @courseid";
+
+                Command.Parameters.AddWithValue("@coursecode", course.CourseCode);
+                Command.Parameters.AddWithValue("@coursename", course.CourseName);
+                Command.Parameters.AddWithValue("@startdate", course.StartDate);
+                Command.Parameters.AddWithValue("@finishdate", course.FinishDate);
+                Command.Parameters.AddWithValue("@teacherid", course.TeacherId);
+                Command.Parameters.AddWithValue("@courseid", course.CourseId);
+
+                int rowsAffected = Command.ExecuteNonQuery();
+                return rowsAffected; // 1 if updated, 0 if not found
+            }
+        }
+
+
+
     }
 }
 

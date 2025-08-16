@@ -86,6 +86,7 @@
                 <th>Hire Date</th>
                 <th>Salary </th>
                 <th>Work Phone </th>
+                <th>Action </th>
 
             </tr>
         </thead>
@@ -102,6 +103,9 @@
                     <td>@teacher.HireDate.ToShortDateString()</td>
                     <td>@teacher.Salary</td>
                     <td>@teacher.TeacherWorkPhone</td>
+                <td>
+                    <a class="btn" href="/TeacherPage/Edit/@teacher.Id">Edit</a>
+                </td>
                 </tr>
             }
         </tbody>

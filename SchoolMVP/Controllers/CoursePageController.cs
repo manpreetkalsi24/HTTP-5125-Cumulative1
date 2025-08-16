@@ -102,5 +102,63 @@ namespace SchoolMVP.Controllers
             // redirects to list action
             return RedirectToAction("CourseList");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var result = _api.GetCourseById(id);
+
+            if (result.Result is OkObjectResult ok && ok.Value is Course course)
+            {
+                // Optional: Load teachers for dropdown
+                ViewBag.Teachers = _api.GetAllTeachers();
+                return View("~/Views/Course/Edit.cshtml", course);
+            }
+            else
+            {
+                return NotFound("Course not found");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Course course)
+        {
+            if (course.StartDate > DateTime.Today)
+                ModelState.AddModelError("StartDate", "Start date cannot be in the future.");
+
+            if (course.FinishDate < course.StartDate)
+                ModelState.AddModelError("FinishDate", "Finish date cannot be before start date.");
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Teachers = _api.GetAllTeachers();
+                return View(course);
+            }
+
+            int result = _api.UpdateCourse(course);
+
+            if (result == -1)
+                ViewBag.Error = "Course code and name are required.";
+
+            else if (result == -2)
+                ViewBag.Error = "Start date cannot be in the future.";
+
+            else if (result == -3)
+                ViewBag.Error = "Finish date cannot be before start date.";
+
+            else if (result == -4)
+                ViewBag.Error = "Please select a valid teacher.";
+
+            else if (result > 0)
+                return RedirectToAction("CourseList");
+
+            else
+                ViewBag.Error = "Update failed.";
+
+            ViewBag.Teachers = _api.GetAllTeachers();
+
+            return View(course);
+        }
+
     }
 }

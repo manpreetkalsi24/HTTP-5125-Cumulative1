@@ -42,7 +42,8 @@
             <th>First Name </th>
             <th>Last Name</th>
             <th>Student Number </th>
-            <th> Date</th>
+            <th>Date</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -55,6 +56,9 @@
                 <td>@student.StudentLname</td>
                 <td>@student.StudentNumber</td>
                 <td>@student.EnrolDate.ToShortDateString()</td>
+                <td>
+                    <a class="btn" href="/StudentPage/Edit/@student.StudentId">Edit</a>
+                </td>
             </tr>
         }
     </tbody>

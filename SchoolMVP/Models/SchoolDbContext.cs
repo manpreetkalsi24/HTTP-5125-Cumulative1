@@ -128,6 +128,8 @@ namespace SchoolMVP.Models
             return teacher;
         }
 
+
+
     //Method for getting students details
         public List<Student> GetAllStudents()
         {
@@ -356,7 +358,6 @@ namespace SchoolMVP.Models
                 newCourse.TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
                 newCourse.StartDate = Convert.ToDateTime(ResultSet["startdate"]);
                 newCourse.FinishDate = Convert.ToDateTime(ResultSet["finishdate"]);
-
 
                 course = newCourse;
             }

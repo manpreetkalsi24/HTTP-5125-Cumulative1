@@ -25,6 +25,7 @@ namespace SchoolMVP.Models
         public DateTime HireDate { get; set; }
 
         [Required(ErrorMessage = "Salary is required.")]
+        [Range(0, double.MaxValue, ErrorMessage = "Salary cannot be negative.")]
         public decimal Salary { get; set; }
 
         public string? TeacherWorkPhone { get; set; }
